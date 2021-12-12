@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,7 @@ import tn.enig.model.Magasin;
 import tn.enig.model.Produit;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+@CrossOrigin(origins = "*")/*, maxAge = 3600*/
 public class ServiceMagasin {
 	
 	@Autowired
@@ -61,6 +62,18 @@ public class ServiceMagasin {
 	@RequestMapping("/getProductsByIdMagasin/{id}")
 	public List<Produit> f(@PathVariable("id") int id){
 		return daoProduit.getAllProductsByIdMagasin(id);
+	}
+	
+	
+	@DeleteMapping("/deleteMagasinById/{id}")
+	public void delete(@PathVariable("id") int id) {
+		System.out.println(id);
+		daoMagasin.deleteById(id);
+	}
+	@DeleteMapping("/deleteProductById/{id}")
+	public void deletePro(@PathVariable("id") int id) {
+		System.out.println(id);
+		daoProduit.deleteById(id);
 	}
 	
 	
